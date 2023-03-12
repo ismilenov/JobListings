@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Spartan';
+  src: url('./fonts/Spartan-Bold.ttf') format('ttf'),
+  url('./fonts/Spartan-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+

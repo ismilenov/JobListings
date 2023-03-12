@@ -1,6 +1,7 @@
 import './App.css';
 import data from "./data.json"
 import React, {useState, useEffect} from 'react';
+import top from "./top.png"
 
 const images = {};
 const buttonsClicked = new Set();
@@ -43,74 +44,81 @@ function filterJobs() {
 
 function App() {
     const [jobs, setJobs] = useState(data);
-    return (<div>
-        <div className={"filters"}>
-            {
-                Array.from(buttonsClicked).map((val) => {
-                    return <button key={val} onClick={() => {
-                        clicked(val);
-                        setJobs(filterJobs());
-                    }}>{val}</button>
+    return (
+        <div >
+            <img src={top} className={"picture"}></img>
+                <div className={"selection"}>
+                    <div className={"filters"}>
+                        {
+                            Array.from(buttonsClicked).map((val) => {
+                                return <button key={val} onClick={() => {
+                                    clicked(val);
+                                    setJobs(filterJobs());
+                                }}>{val}</button>
 
-                })
-            }
-            <button onClick={() => {
-                clicked("clear");
-                setJobs(filterJobs());
-            }}>{"Clear"}</button>
+                            })
+                        }
+                        <div className={"clear"}>
+                            <button onClick={() => {
+                                clicked("clear");
+                                setJobs(filterJobs());
+                            }}>{"Clear"}</button>
+                        </div>
+                    </div>
 
-        </div>
+
+                </div>
 
 
-        <div className={"listing"}>
-            <ul>
-                {jobs.map((val, key) => {
-                    const imgpath = "./" + val.logo.split("/")[2];
-                    const logo = images[imgpath];
-                    return <li key={key}>
-                        <img src={logo}></img>
-                        <div>
-                            <div className={"Specials"}>
-                                <p>{val.company}</p>
-                                {val.new && <div className={"newLabel"}>NEW!</div>}
-                                {val.featured && <div className={"featuredLabel"}>FEATURED</div>}
+            <div className={"listing"}>
+                <ul>
+                    {jobs.map((val, key) => {
+                        const imgpath = "./" + val.logo.split("/")[2];
+                        const logo = images[imgpath];
+                        return <li key={key}>
+                            <img src={logo}></img>
+                            <div>
+                                <div className={"Specials"}>
+                                    <p>{val.company}</p>
+                                    {val.new && <div className={"newLabel"}>NEW!</div>}
+                                    {val.featured && <div className={"featuredLabel"}>FEATURED</div>}
+                                </div>
+                                <b>{val.position}</b>
+                                <p>{val.postedAt} {val.contract} {val.location}</p>
                             </div>
-                            <b>{val.position}</b>
-                            <p>{val.postedAt} {val.contract} {val.location}</p>
-                        </div>
-                        <div className={"Tags"}>
-                            {
-                                <button key={val.role} onClick={() => {
-                                    clicked(val.role);
-                                    setJobs(filterJobs());
-                                }}>{val.role}</button>
-                            }
-                            {
-                                <button key={val.level} onClick={() => {
-                                    clicked(val.level);
-                                    setJobs(filterJobs());
-                                }}>{val.level}</button>
-                            }
-                            {val.languages.map((language) => (
-                                <button key={language} onClick={() => {
-                                    clicked(language);
-                                    setJobs(filterJobs());
-                                }}>{language}</button>
-                            ))}
-                            {val.tools.map((tool) => (
-                                <button key={tool} onClick={() => {
-                                    clicked(tool);
-                                    setJobs(filterJobs());
-                                }}>{tool}</button>
-                            ))}
-                        </div>
+                            <div className={"Tags"}>
+                                {
+                                    <button key={val.role} onClick={() => {
+                                        clicked(val.role);
+                                        setJobs(filterJobs());
+                                    }}>{val.role}</button>
+                                }
+                                {
+                                    <button key={val.level} onClick={() => {
+                                        clicked(val.level);
+                                        setJobs(filterJobs());
+                                    }}>{val.level}</button>
+                                }
+                                {val.languages.map((language) => (
+                                    <button key={language} onClick={() => {
+                                        clicked(language);
+                                        setJobs(filterJobs());
+                                    }}>{language}</button>
+                                ))}
+                                {val.tools.map((tool) => (
+                                    <button key={tool} onClick={() => {
+                                        clicked(tool);
+                                        setJobs(filterJobs());
+                                    }}>{tool}</button>
+                                ))}
+                            </div>
 
-                    </li>;
-                })}
-            </ul>
-        </div>
-    </div>);
+                        </li>;
+                    })}
+                </ul>
+            </div>
+        </div>);
 }
 
 
-    export default App;
+export default App;
